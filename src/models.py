@@ -24,13 +24,13 @@ class User(db.Model):
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
-    heigth = db.Column(db.Integer, nullable=True)
-    mass = db.Column(db.Integer, nullable=True)
-    hair_color = db.Column(db.String(25), nullable=True)
-    skin_color = db.Column(db.String(25), nullable=True)
-    eye_color = db.Column(db.String(25), nullable=True)
-    birth_year = db.Column(db.String(15), nullable=False)
-    gender = db.Column(db.String(10), nullable=True)
+    heigth = db.Column(db.Integer, unique=False, nullable=True)
+    mass = db.Column(db.Integer, unique=False, nullable=True)
+    hair_color = db.Column(db.String(25), unique=False, nullable=True)
+    skin_color = db.Column(db.String(25), unique=False, nullable=True)
+    eye_color = db.Column(db.String(25), unique=False, nullable=True)
+    birth_year = db.Column(db.String(15), unique=False, nullable=False)
+    gender = db.Column(db.String(10), unique=False, nullable=True)
 
     def __repr__(self):
         return '<Character %r>' % self.id
@@ -53,14 +53,14 @@ class Character(db.Model):
 class Planet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
-    rotation_period = db.Column(db.Integer, nullable=True)
-    orbital_period = db.Column(db.Integer, nullable=True)
-    diameter = db.Column(db.Integer, nullable=True)
-    climate = db.Column(db.String(25), nullable=True)
-    gravity = db.Column(db.String(25), nullable=True)
-    terrain = db.Column(db.String(100), nullable=True)
-    surface_water = db.Column(db.Integer, nullable=True)
-    population = db.Column(db.Integer, nullable=True)
+    rotation_period = db.Column(db.Integer, unique=False, nullable=True)
+    orbital_period = db.Column(db.Integer, unique=False, nullable=True)
+    diameter = db.Column(db.Integer, unique=False, nullable=True)
+    climate = db.Column(db.String(25), unique=False, nullable=True)
+    gravity = db.Column(db.String(25), unique=False, nullable=True)
+    terrain = db.Column(db.String(100), unique=False, nullable=True)
+    surface_water = db.Column(db.Integer, unique=False, nullable=True)
+    population = db.Column(db.Integer, unique=False, nullable=True)
 
     def __repr__(self):
         return '<Planet %r>' % self.id
@@ -80,17 +80,18 @@ class Planet(db.Model):
 
         }
 
-    class Favorite(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
 
-        def __repr__(self):
-            return '<Favorite %r>' % self.id
+class Favorite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
 
-        def serialize(self):
-            return {
-                "id": self.id,
+    def __repr__(self):
+        return '<Favorite %r>' % self.id
 
-            }
+    def serialize(self):
+        return {
+            "id": self.id,
+
+        }
 
 
 # Draw from SQLAlchemy db
