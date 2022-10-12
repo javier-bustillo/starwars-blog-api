@@ -10,6 +10,9 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
+    favorites = db.relationship(
+        'Favorite', backref='user', lazy=True, uselist=False)
+
     def __repr__(self):
         return '<User %r>' % self.id
 
@@ -95,6 +98,8 @@ class Favorite(db.Model):
                              nullable=False)
     planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'),
                           nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+                        nullable=False)
 
     def __repr__(self):
         return '<Favorite %r>' % self.id
