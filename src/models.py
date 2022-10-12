@@ -67,6 +67,7 @@ class Character(db.Model):
 
     planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'),
                           nullable=False)
+    favorites = db.relationship('Favorite', backref='character', lazy=True)
 
     def __repr__(self):
         return '<Character %r>' % self.id
@@ -88,6 +89,9 @@ class Character(db.Model):
 
 class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+    character_id = db.Column(db.Integer, db.ForeignKey('character.id'),
+                             nullable=False)
 
     def __repr__(self):
         return '<Favorite %r>' % self.id
