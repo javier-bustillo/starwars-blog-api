@@ -86,7 +86,8 @@ class Character(db.Model):
             "skin_color": self.skin_color,
             "eye_color": self.eye_color,
             "birth_year": self.birth_year,
-            "gender": self.gender
+            "gender": self.gender,
+            "planet_id": self.planet_id
 
         }
 
