@@ -70,8 +70,9 @@ def get_all_planets():
 
 @app.route('/people/<int:id>', methods=['GET'])
 def get_people_by_id(id):
+    people_by_id= Character.query.filter_by(id=id).first()
     response_body = {
-        "msg": "Hello, this is my GET /people/<int:id> response"
+        "result": people_by_id.serialize()
     }
 
     return jsonify(response_body), 200
