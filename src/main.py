@@ -54,10 +54,28 @@ def get_people():
     return jsonify(response_body), 200
 
 
+@app.route('/planets', methods=['GET'])
+def planets():
+    response_body = {
+        "msg": "Hello, this is my GET /planets response"
+    }
+
+    return jsonify(response_body), 200
+
+
 @app.route('/people/<int:id>', methods=['GET'])
 def get_people_by_id(id):
     response_body = {
         "msg": "Hello, this is my GET /people/<int:id> response"
+    }
+
+    return jsonify(response_body), 200
+
+
+@app.route('/planets/<int:id>', methods=['GET'])
+def get_planets_by_id(id):
+    response_body = {
+        "msg": "Hello, this is my GET /planets/<int:id> response"
     }
 
     return jsonify(response_body), 200
