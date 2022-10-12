@@ -46,9 +46,12 @@ def handle_hello():
 
 
 @app.route('/people', methods=['GET'])
-def get_people():
+def get_all_characters():
+    all_characters = Character.query.all()
+    all_characters_list = list(map(lambda x: x.serialize(), all_characters))
     response_body = {
-        "msg": "Hello, this is my GET /people response"
+        "results": all_characters_list
+
     }
 
     return jsonify(response_body), 200
