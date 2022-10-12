@@ -58,9 +58,11 @@ def get_all_characters():
 
 
 @app.route('/planets', methods=['GET'])
-def planets():
+def get_all_planets():
+    all_planets = Planet.query.all()
+    all_planets_list = list(map(lambda x: x.serialize(), all_planets))
     response_body = {
-        "msg": "Hello, this is my GET /planets response"
+        "results": all_planets_list
     }
 
     return jsonify(response_body), 200
