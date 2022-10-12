@@ -110,8 +110,6 @@ class Favorite(db.Model):
             "character_id": self.character_id,
             "planet_id": self.planet_id,
             "user_id": self.user_id
-
-
         }
 
 
