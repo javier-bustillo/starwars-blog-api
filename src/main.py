@@ -70,7 +70,7 @@ def get_all_planets():
 
 @app.route('/people/<int:id>', methods=['GET'])
 def get_people_by_id(id):
-    people_by_id = Character.query.filter_by(id=id).first()
+    people_by_id = Character.query.filter_by(id=id).first_or_404(description='There is no data with people id: {}'.format(id))
     
     response_body = {
         "result": people_by_id.serialize()
@@ -81,7 +81,7 @@ def get_people_by_id(id):
 
 @app.route('/planets/<int:id>', methods=['GET'])
 def get_planets_by_id(id):
-    planets_by_id = Planet.query.filter_by(id=id).first()
+    planets_by_id = Planet.query.filter_by(id=id).first_or_404(description='There is no data with planet id: {}'.format(id))
 
     response_body = {
         "result": planets_by_id.serialize()
