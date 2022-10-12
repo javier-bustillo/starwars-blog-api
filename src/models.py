@@ -21,35 +21,6 @@ class User(db.Model):
         }
 
 
-class Character(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
-    heigth = db.Column(db.Integer, unique=False, nullable=True)
-    mass = db.Column(db.Integer, unique=False, nullable=True)
-    hair_color = db.Column(db.String(25), unique=False, nullable=True)
-    skin_color = db.Column(db.String(25), unique=False, nullable=True)
-    eye_color = db.Column(db.String(25), unique=False, nullable=True)
-    birth_year = db.Column(db.String(15), unique=False, nullable=False)
-    gender = db.Column(db.String(10), unique=False, nullable=True)
-
-    def __repr__(self):
-        return '<Character %r>' % self.id
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "heigth": self.heigth,
-            "mass": self.mass,
-            "hair_color": self.hair_color,
-            "skin_color": self.skin_color,
-            "eye_color": self.eye_color,
-            "birth_year": self.birth_year,
-            "gender": self.gender
-
-        }
-
-
 class Planet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
@@ -61,6 +32,8 @@ class Planet(db.Model):
     terrain = db.Column(db.String(100), unique=False, nullable=True)
     surface_water = db.Column(db.Integer, unique=False, nullable=True)
     population = db.Column(db.Integer, unique=False, nullable=True)
+
+    characters = db.relationship('Character', backref='planet', lazy=True)
 
     def __repr__(self):
         return '<Planet %r>' % self.id
@@ -77,6 +50,38 @@ class Planet(db.Model):
             "terrain": self.terrain,
             "surface_water": self.surface_water,
             "population": self.population
+
+        }
+
+
+class Character(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    heigth = db.Column(db.Integer, unique=False, nullable=True)
+    mass = db.Column(db.Integer, unique=False, nullable=True)
+    hair_color = db.Column(db.String(25), unique=False, nullable=True)
+    skin_color = db.Column(db.String(25), unique=False, nullable=True)
+    eye_color = db.Column(db.String(25), unique=False, nullable=True)
+    birth_year = db.Column(db.String(15), unique=False, nullable=False)
+    gender = db.Column(db.String(10), unique=False, nullable=True)
+
+    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'),
+                          nullable=False)
+
+    def __repr__(self):
+        return '<Character %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "heigth": self.heigth,
+            "mass": self.mass,
+            "hair_color": self.hair_color,
+            "skin_color": self.skin_color,
+            "eye_color": self.eye_color,
+            "birth_year": self.birth_year,
+            "gender": self.gender
 
         }
 
