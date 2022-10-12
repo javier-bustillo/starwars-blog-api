@@ -70,7 +70,8 @@ def get_all_planets():
 
 @app.route('/people/<int:id>', methods=['GET'])
 def get_people_by_id(id):
-    people_by_id= Character.query.filter_by(id=id).first()
+    people_by_id = Character.query.filter_by(id=id).first()
+    
     response_body = {
         "result": people_by_id.serialize()
     }
@@ -80,8 +81,10 @@ def get_people_by_id(id):
 
 @app.route('/planets/<int:id>', methods=['GET'])
 def get_planets_by_id(id):
+    planets_by_id = Planet.query.filter_by(id=id).first()
+
     response_body = {
-        "msg": "Hello, this is my GET /planets/<int:id> response"
+        "result": planets_by_id.serialize()
     }
 
     return jsonify(response_body), 200
