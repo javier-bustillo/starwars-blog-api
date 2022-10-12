@@ -66,7 +66,7 @@ class Character(db.Model):
     hair_color = db.Column(db.String(25), unique=False, nullable=True)
     skin_color = db.Column(db.String(25), unique=False, nullable=True)
     eye_color = db.Column(db.String(25), unique=False, nullable=True)
-    birth_year = db.Column(db.String(15), unique=False, nullable=False)
+    birth_year = db.Column(db.String(15), unique=False, nullable=True)
     gender = db.Column(db.String(10), unique=False, nullable=True)
 
     planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'),
