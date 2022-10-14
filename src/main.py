@@ -36,13 +36,26 @@ def sitemap():
 
 
 @app.route('/users', methods=['GET'])
-def handle_hello():
+def get_all_users():
 
     users = User.query.all()
     users_list = list(map(lambda x: x.serialize(), users))
 
     response_body = {
         "results": users_list
+    }
+
+    return jsonify(response_body), 200
+
+
+@app.route('/users/favorites', methods=['GET'])
+def get_all_users_favorites():
+
+    favorites = Favorite.query.all()
+    favorites_list = list(map(lambda x: x.serialize(), favorites))
+
+    response_body = {
+        "results": favorites_list
     }
 
     return jsonify(response_body), 200
