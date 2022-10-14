@@ -35,11 +35,14 @@ def sitemap():
     return generate_sitemap(app)
 
 
-@app.route('/user', methods=['GET'])
+@app.route('/users', methods=['GET'])
 def handle_hello():
 
+    users = User.query.all()
+    users_list = list(map(lambda x: x.serialize(), users))
+
     response_body = {
-        "msg": "Hello, this is your GET /user response "
+        "results": users_list
     }
 
     return jsonify(response_body), 200
@@ -70,8 +73,9 @@ def get_all_planets():
 
 @app.route('/people/<int:id>', methods=['GET'])
 def get_people_by_id(id):
-    people_by_id = Character.query.filter_by(id=id).first_or_404(description='There is no data with people id: {}'.format(id))
-    
+    people_by_id = Character.query.filter_by(id=id).first_or_404(
+        description='There is no data with people id: {}'.format(id))
+
     response_body = {
         "result": people_by_id.serialize()
     }
@@ -81,7 +85,8 @@ def get_people_by_id(id):
 
 @app.route('/planets/<int:id>', methods=['GET'])
 def get_planets_by_id(id):
-    planets_by_id = Planet.query.filter_by(id=id).first_or_404(description='There is no data with planet id: {}'.format(id))
+    planets_by_id = Planet.query.filter_by(id=id).first_or_404(
+        description='There is no data with planet id: {}'.format(id))
 
     response_body = {
         "result": planets_by_id.serialize()
