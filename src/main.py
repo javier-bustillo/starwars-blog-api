@@ -108,8 +108,20 @@ def get_planets_by_id(id):
 
     return jsonify(response_body), 200
 
+
 @app.route('/favorite/planet/<int:planet_id>', methods=['POST'])
-def add_new_planet_to_current_user()
+def add_new_planet_to_current_user(planet_id):
+    body = json.loads(request.data)
+
+    create_planet_in_user = Favorite(
+        user_id=body['user_id'], planet_id=planet_id)
+    db.session.add(create_planet_in_user)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Planet Created"
+    }
+    return jsonify(response_body), 200
 
 
 # this only runs if `$ python src/main.py` is executed

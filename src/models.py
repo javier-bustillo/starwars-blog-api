@@ -96,9 +96,9 @@ class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     character_id = db.Column(db.Integer, db.ForeignKey('character.id'),
-                             nullable=False)
+                             nullable=True)
     planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'),
-                          nullable=False)
+                          nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
                         nullable=False)
 
