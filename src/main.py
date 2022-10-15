@@ -48,11 +48,12 @@ def get_all_users():
     return jsonify(response_body), 200
 
 
-@app.route('/users/favorites', methods=['GET'])
-def get_all_users_favorites():
+@app.route('/users/favorites/<int:user_id>', methods=['GET'])
+def get_all_users_favorites(user_id):
 
-    favorites = Favorite.query.all()
+    favorites = Favorite.query.filter_by(user_id=user_id)
     favorites_list = list(map(lambda x: x.serialize(), favorites))
+    print(favorites_list)
 
     response_body = {
         "results": favorites_list
@@ -106,6 +107,9 @@ def get_planets_by_id(id):
     }
 
     return jsonify(response_body), 200
+
+@app.route('/favorite/planet/<int:planet_id>', methods=['POST'])
+def add_new_planet_to_current_user()
 
 
 # this only runs if `$ python src/main.py` is executed
