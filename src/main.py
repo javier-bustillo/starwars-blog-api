@@ -124,6 +124,21 @@ def add_new_planet_to_current_user(planet_id):
     return jsonify(response_body), 200
 
 
+@app.route('/favorite/people/<int:character_id>', methods=['POST'])
+def add_new_character_to_current_user(character_id):
+    body = json.loads(request.data)
+
+    create_character_in_user = Favorite(
+        user_id=body['user_id'], character_id=character_id)
+    db.session.add(create_character_in_user)
+    db.session.commit()
+
+    response_body = {
+        "msg": "Character Created"
+    }
+    return jsonify(response_body), 200
+
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
