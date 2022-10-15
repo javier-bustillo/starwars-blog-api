@@ -50,11 +50,12 @@ def get_all_users():
 
 @app.route('/people', methods=['GET'])
 def get_all_characters():
+
     all_characters = Character.query.all()
     all_characters_list = list(map(lambda x: x.serialize(), all_characters))
+
     response_body = {
         "results": all_characters_list
-
     }
 
     return jsonify(response_body), 200
@@ -62,8 +63,10 @@ def get_all_characters():
 
 @app.route('/planets', methods=['GET'])
 def get_all_planets():
+
     all_planets = Planet.query.all()
     all_planets_list = list(map(lambda x: x.serialize(), all_planets))
+
     response_body = {
         "results": all_planets_list
     }
@@ -73,6 +76,7 @@ def get_all_planets():
 
 @app.route('/people/<int:id>', methods=['GET'])
 def get_people_by_id(id):
+
     people_by_id = Character.query.filter_by(id=id).first_or_404(
         description='There is no data with people id: {}'.format(id))
 
@@ -85,6 +89,7 @@ def get_people_by_id(id):
 
 @app.route('/planets/<int:id>', methods=['GET'])
 def get_planets_by_id(id):
+
     planets_by_id = Planet.query.filter_by(id=id).first_or_404(
         description='There is no data with planet id: {}'.format(id))
 
@@ -100,7 +105,6 @@ def get_all_users_favorites(user_id):
 
     favorites = Favorite.query.filter_by(user_id=user_id)
     favorites_list = list(map(lambda x: x.serialize(), favorites))
-    print(favorites_list)
 
     response_body = {
         "results": favorites_list
@@ -111,6 +115,7 @@ def get_all_users_favorites(user_id):
 
 @app.route('/favorite/planet/<int:planet_id>', methods=['POST'])
 def create_new_planet_to_current_user(planet_id):
+
     body = json.loads(request.data)
 
     create_planet_request = Favorite(
@@ -121,11 +126,13 @@ def create_new_planet_to_current_user(planet_id):
     response_body = {
         "msg": "Planet Created"
     }
+
     return jsonify(response_body), 200
 
 
 @app.route('/favorite/people/<int:character_id>', methods=['POST'])
 def create_new_character_to_current_user(character_id):
+
     body = json.loads(request.data)
 
     create_character_request = Favorite(
@@ -136,6 +143,7 @@ def create_new_character_to_current_user(character_id):
     response_body = {
         "msg": "Character Created"
     }
+
     return jsonify(response_body), 200
 
 
